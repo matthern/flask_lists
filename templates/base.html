@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        .crossed {
+            text-decoration: line-through ;    
+            
+        }
+    </style>
+<style>
+    .checkbox-text-wrapper {
+        display: flex;
+        align-items: center;
+        
+    }
+    .checkbox-text-wrapper a {
+        float: right;
+        margin-left: 10px;
+    }
+
+    
+
+
+    .checkbox-text-wrapper input[type="checkbox"] {
+        margin-right: 10px;
+        vertical-align: middle;
+        margin-top: 25px;
+
+        
+    }
+
+   
+</style>
+ 
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Shopping List</h1>
+
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                
+                <input type="text" name="title" placeholder="Enter Item Needed..."><br>
+            </div>
+
+           
+        
+            <button class="ui blue button" type="submit">Add</button>
+            
+        </form>
+
+        <hr>
+        
+        <div class="ui segment">
+            <form method="post" action="{{ url_for('delete_selected') }}">
+                {% for shoppo in shoppo_list %}                                                    
+               
+                    <div class="checkbox-text-wrapper">
+                        <input type="checkbox" {% if shoppo.complete %}checked{% endif %} onchange="location.href='/update/{{shoppo.id}}'" name="selected_items" name="selected_items" value="{{shoppo.id}}">
+                        <p class="ui big header {% if shoppo.complete %}crossed{% endif %}">
+                             {{ shoppo.title }} 
+
+                        </p>
+                        
+                       
+                    </div>                   
+                   
+                    {% endfor %}
+                    <br>
+                    {% if shoppo_list %}
+                    <button class="ui mini red button" type="submit">Delete Selected</button>
+                    {% endif %}
+                </form>
+        </div>
+             
+        <div class="ui segment">
+            
+            <form action="{{ url_for('delete_all') }}" method="post">
+                
+                <button class="ui red button" type="submit">Delete All</button>  
+                
+                
+
+
+                
+            </form>
+
+        
+
+            
+            
+        </div>
+    </div>
+  
+</body>
+
+
+</html>
