@@ -1,0 +1,14 @@
+{
+    "short_name": "Shopping List",
+    "name": "Shoppo List",
+    "icons": [
+        {
+            "src": "icon-03.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}

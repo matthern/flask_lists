@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icon-03.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping List</title>
@@ -13,8 +18,12 @@
             text-decoration: line-through ;    
             
         }
-    </style>
-<style>
+   
+    .big-checkbox {
+    height: 30px;
+    width: 30px;
+}
+
     .checkbox-text-wrapper {
         display: flex;
         align-items: center;
@@ -64,7 +73,11 @@
                 {% for shoppo in shoppo_list %}                                                    
                
                     <div class="checkbox-text-wrapper">
-                        <input type="checkbox" {% if shoppo.complete %}checked{% endif %} onchange="location.href='/update/{{shoppo.id}}'" name="selected_items" name="selected_items" value="{{shoppo.id}}">
+                       
+                        <input type="checkbox" {% if shoppo.complete %}checked{% endif %} onchange="location.href='/update/{{shoppo.id}}'" name="selected_items" name="selected_items" value="{{shoppo.id}}" class="big-checkbox">
+                       
+                       
+                      
                         <p class="ui big header {% if shoppo.complete %}crossed{% endif %}">
                              {{ shoppo.title }} 
 

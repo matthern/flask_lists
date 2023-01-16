@@ -1,24 +1,32 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 # /// = relative path, //// = absolute path
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
+app.static_url_path = '/static'
+app.static_folder = 'static'
 
 class Shoppo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     complete = db.Column(db.Boolean)
     
-    
 
+
+@app.route('/favicon.ico')
+def favicon():
+    print("Favicon function called")
+    return send_from_directory(app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+   
 
 @app.route("/")
 def home():
     shoppo_list = Shoppo.query.all()
     return render_template("base.html", shoppo_list=shoppo_list)
+
 
 
 @app.route("/add", methods=["POST"])
