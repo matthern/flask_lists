@@ -11,23 +11,17 @@ app.static_folder = 'static'
 class Shoppo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    complete = db.Column(db.Boolean)
-    
-
+    complete = db.Column(db.Boolean)   
 
 @app.route('/favicon.ico')
 def favicon():
     print("Favicon function called")
-    return send_from_directory(app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-   
+    return send_from_directory(app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')   
 
 @app.route("/")
 def home():
     shoppo_list = Shoppo.query.all()
     return render_template("base.html", shoppo_list=shoppo_list)
-
-
 
 @app.route("/add", methods=["POST"])
 def add():
@@ -67,7 +61,6 @@ def delete_selected():
         db.session.delete(shoppo)
         db.session.commit()
     return redirect(url_for("home"))
-
 
 if __name__ == "__main__":
     db.create_all()
